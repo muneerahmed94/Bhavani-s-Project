@@ -1,0 +1,117 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@drawable/white"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MainActivity">
+    <Button
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:paddingLeft="40dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:background="@drawable/listen"
+        android:id="@+id/listen" />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/txtPitch"
+        android:textSize="20dp"
+        android:textColor="#004040"
+        android:text="@string/text_pitch"
+        android:layout_marginTop="10dp"
+        />
+
+    <SeekBar
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="15dp"
+        android:max="10"
+        android:id="@+id/seekPitch"
+        android:progress="5"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/txtSpeed"
+        android:textSize="20dp"
+        android:textColor="#004040"
+        android:text="@string/text_speed"
+        android:layout_marginTop="10dp"
+        />
+
+    <SeekBar
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:max="10"
+        android:id="@+id/seekSpeed"
+        android:progress="5"/>
+        </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="20dp"
+        android:paddingTop="10dp">
+
+    <Button
+        android:background="@drawable/call"
+        android:id ="@+id/Call"
+        android:layout_width="140dp"
+        android:layout_height="120dp"
+        android:padding="20dp"
+        android:layout_weight="1" />
+    <Button
+        android:background="@drawable/message"
+        android:layout_marginLeft="20dp"
+        android:id ="@+id/Message"
+        android:layout_width="140dp"
+        android:layout_height="120dp"
+        android:padding="20dp"
+        android:layout_weight="1" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="5dp"
+        android:paddingLeft="20dp"
+        >
+
+        <Button
+            android:background="@drawable/email"
+            android:id ="@+id/email"
+            android:layout_width="140dp"
+            android:layout_height="120dp"
+            android:padding="15dp"
+            android:layout_weight="1" />
+        <Button
+            android:background="@drawable/notification"
+            android:layout_marginLeft="20dp"
+            android:id ="@+id/Notification"
+            android:layout_width="140dp"
+            android:layout_height="120dp"
+            android:padding="15dp"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+
+
+
+</LinearLayout>

@@ -1,0 +1,111 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin" android:orientation="vertical"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MainActivity">
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Show"
+        android:id="@+id/buttonMyButton"
+        android:layout_gravity="right" />
+
+    <Button
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:paddingLeft="40dp"
+        android:layout_width="130dp"
+        android:layout_height="120dp"
+        android:background="@drawable/listen"
+        android:id="@+id/notifylisten" />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtPitch1"
+            android:textSize="20dp"
+            android:textColor="#004040"
+            android:text="@string/text_pitch"
+            android:layout_marginTop="10dp"
+            />
+
+        <SeekBar
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="15dp"
+            android:max="10"
+            android:id="@+id/nseekPitch"
+            android:progress="3"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/notifySpeed1"
+            android:textSize="20dp"
+            android:textColor="#004040"
+            android:text="@string/text_speed"
+            android:layout_marginTop="10dp"
+            />
+
+        <SeekBar
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:max="10"
+            android:id="@+id/nseekSpeed"
+            android:progress="3"/>
+    </LinearLayout>
+    <LinearLayout android:layout_marginTop="5dp"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:orientation="horizontal">
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Clear"
+        android:layout_weight="1"
+        android:id="@+id/btnClearNotify"
+        android:onClick="buttonClicked"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Get"
+        android:layout_weight="1"
+        android:id="@+id/btnListNotify"
+        android:onClick="buttonClicked"/>
+   </LinearLayout>
+    <ScrollView android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/btnListNotify"
+        android:layout_below="@+id/btnListNotify"
+        android:layout_alignLeft="@+id/btnListNotify">
+
+        <TextView
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:hint="Notifications"
+            android:id="@+id/NotifytextView"
+            />
+
+
+    </ScrollView>
+
+</LinearLayout>
+
