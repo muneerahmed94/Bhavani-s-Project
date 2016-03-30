@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Color;
+import android.os.Handler;
 import android.speech.RecognizerIntent;
 import android.speech.tts.TextToSpeech;
 import android.support.v7.app.ActionBarActivity;
@@ -36,8 +37,7 @@ public class notificationactivity extends ActionBarActivity  implements TextToSp
     private String num[]={"Zero","One","Two","Three","Four","Five","Six","Seven","Eight","NIne"};
     private boolean flaglist;
 
-    String myString = "", notificationsString = "";
-    Button myButton;
+    String notificationsString = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -99,15 +99,6 @@ public class notificationactivity extends ActionBarActivity  implements TextToSp
                 promptSpeechInput();
             }
         });
-
-        myButton = (Button) findViewById(R.id.buttonMyButton);
-        myButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //Toast.makeText(getBaseContext(), notificationsString, Toast.LENGTH_LONG).show();
-                txtView.setText(notificationsString);
-            }
-        });
     }
     public void onInit(int status) {
         Log.d("Speech", "OnInit - Status [" + status + "]");
@@ -129,15 +120,19 @@ public class notificationactivity extends ActionBarActivity  implements TextToSp
         }
         else if(v.getId() == R.id.btnListNotify){
             Intent i = new Intent("com.kpbird.nlsexample.NOTIFICATION_LISTENER_SERVICE_EXAMPLE");
-            i.putExtra("command","list");
+            i.putExtra("command", "list");
             txtView.setText("");
             notificationsString = "";
             sendBroadcast(i);
-            Toast.makeText(getBaseContext(), "Notifications fetched successfully...\nPress Show or Say read", Toast.LENGTH_LONG).show();
-            engine.speak("Notifications fetched successfully, Press Show or Say read", TextToSpeech.QUEUE_FLUSH, null, null);
+            final Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    txtView.setText(notificationsString);
+                    engine.speak(notificationsString, TextToSpeech.QUEUE_FLUSH, null, null);
+                }
+            }, 1500);
         }
-
-
     }
     private void promptSpeechInput() {
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
@@ -183,20 +178,21 @@ public class notificationactivity extends ActionBarActivity  implements TextToSp
             notificationsString = "";
             speech("cleared all notifications");
         }
-        else if(check.equalsIgnoreCase("read"))
-        {
-            txtView.setText(notificationsString);
-            engine.speak(notificationsString, TextToSpeech.QUEUE_FLUSH, null, null);
-        }
-        else if(check.equalsIgnoreCase("get"))
+        else if(check.equalsIgnoreCase("list"))
         {
             Intent i = new Intent("com.kpbird.nlsexample.NOTIFICATION_LISTENER_SERVICE_EXAMPLE");
-            i.putExtra("command","list");
+            i.putExtra("command", "list");
             txtView.setText("");
             notificationsString = "";
             sendBroadcast(i);
-            Toast.makeText(getBaseContext(), "Notifications fetched successfully...\nPress Show or Say read", Toast.LENGTH_LONG).show();
-            engine.speak("Notifications fetched successfully, Press Show or Say read", TextToSpeech.QUEUE_FLUSH, null, null);
+            final Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    txtView.setText(notificationsString);
+                    engine.speak(notificationsString, TextToSpeech.QUEUE_FLUSH, null, null);
+                }
+            }, 1500);
         }
         else
         {
