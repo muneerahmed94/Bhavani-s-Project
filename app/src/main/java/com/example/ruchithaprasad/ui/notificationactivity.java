@@ -129,15 +129,80 @@ public class notificationactivity extends ActionBarActivity  implements TextToSp
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    if(notificationsString.length() == 0) {
-                        notificationsString = "There are no new notifications";
-                    }
                     txtView.setText(notificationsString);
-                    engine.speak(notificationsString, TextToSpeech.QUEUE_FLUSH, null, null);
+                    readNotifications(notificationsString);
                 }
             }, 1500);
         }
     }
+
+    private void checkdetails(String check)
+    {
+        if(check.equalsIgnoreCase("clear"))
+        {
+            Intent i = new Intent("com.kpbird.nlsexample.NOTIFICATION_LISTENER_SERVICE_EXAMPLE");
+            i.putExtra("command", "clearall");
+            sendBroadcast(i);
+            txtView.setText("");
+            notificationsString = "";
+            speech("cleared all notifications");
+        }
+        else if(check.equalsIgnoreCase("list"))
+        {
+            Intent i = new Intent("com.kpbird.nlsexample.NOTIFICATION_LISTENER_SERVICE_EXAMPLE");
+            i.putExtra("command", "list");
+            txtView.setText("");
+            notificationsString = "";
+            sendBroadcast(i);
+
+            final Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    txtView.setText(notificationsString);
+                    readNotifications(notificationsString);
+                }
+            }, 1500);
+        }
+        else
+        {
+            speech("sorry we did not get u try again");
+        }
+    }
+
+    private void readNotifications(String notificationsString) {
+        String stringToBeRead = getStringToBeRead(notificationsString);
+        read(stringToBeRead);
+    }
+
+    private String getStringToBeRead(String notificationsString) {
+        String stringToBeRead = "";
+        String[] lines = notificationsString.split("\n");
+        for (String line : lines) {
+            String[] words = line.split(" ");
+            for(String word : words) {
+                if(isNumber(word) && word.length() >= 10) {
+                    for(int i = 0; i < word.length(); i++) {
+                        String digit = new Character(word.charAt(i)).toString();
+                        stringToBeRead += digit + " ";
+                    }
+                }
+                else {
+                    if(word != null)
+                        stringToBeRead += word + " ";
+                }
+            }
+            stringToBeRead += "\n";
+        }
+        return stringToBeRead;
+    }
+
+    private void read(String stringToBeRead) {
+        engine.setPitch((float) pitch);
+        engine.setSpeechRate((float) speed);
+        engine.speak(stringToBeRead, TextToSpeech.QUEUE_FLUSH, null, null);
+    }
+
     private void promptSpeechInput() {
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
@@ -171,42 +236,9 @@ public class notificationactivity extends ActionBarActivity  implements TextToSp
 
         }
     }
-    private void checkdetails(String check)
-    {
-        if(check.equalsIgnoreCase("clear"))
-        {
-            Intent i = new Intent("com.kpbird.nlsexample.NOTIFICATION_LISTENER_SERVICE_EXAMPLE");
-            i.putExtra("command", "clearall");
-            sendBroadcast(i);
-            txtView.setText("");
-            notificationsString = "";
-            speech("cleared all notifications");
-        }
-        else if(check.equalsIgnoreCase("list"))
-        {
-            Intent i = new Intent("com.kpbird.nlsexample.NOTIFICATION_LISTENER_SERVICE_EXAMPLE");
-            i.putExtra("command", "list");
-            txtView.setText("");
-            notificationsString = "";
-            sendBroadcast(i);
 
-            final Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    if(notificationsString.length() == 0) {
-                        notificationsString = "There are no new notifications";
-                    }
-                    txtView.setText(notificationsString);
-                    engine.speak(notificationsString, TextToSpeech.QUEUE_FLUSH, null, null);
-                }
-            }, 1500);
-        }
-        else
-        {
-            speech("sorry we did not get u try again");
-        }
-    }
+
+
     private void speech(String number) {
         engine.setPitch((float) pitch);
         engine.setSpeechRate((float) speed);
