@@ -124,10 +124,14 @@ public class notificationactivity extends ActionBarActivity  implements TextToSp
             txtView.setText("");
             notificationsString = "";
             sendBroadcast(i);
+
             final Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
+                    if(notificationsString.length() == 0) {
+                        notificationsString = "There are no new notifications";
+                    }
                     txtView.setText(notificationsString);
                     engine.speak(notificationsString, TextToSpeech.QUEUE_FLUSH, null, null);
                 }
@@ -185,10 +189,14 @@ public class notificationactivity extends ActionBarActivity  implements TextToSp
             txtView.setText("");
             notificationsString = "";
             sendBroadcast(i);
+
             final Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
+                    if(notificationsString.length() == 0) {
+                        notificationsString = "There are no new notifications";
+                    }
                     txtView.setText(notificationsString);
                     engine.speak(notificationsString, TextToSpeech.QUEUE_FLUSH, null, null);
                 }
